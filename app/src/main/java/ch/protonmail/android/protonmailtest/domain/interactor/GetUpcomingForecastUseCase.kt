@@ -3,11 +3,11 @@ package ch.protonmail.android.protonmailtest.domain.interactor
 import ch.protonmail.android.protonmailtest.data.ForecastRepository
 import ch.protonmail.android.protonmailtest.domain.Forecast
 
-class GetUpcomingForecastUseCase(
+class GetUpcomingForecastUseCase constructor(
     private val repository: ForecastRepository
-) {
+) : GetForecastUseCase {
 
-    suspend operator fun invoke(): List<Forecast> =
+    override suspend operator fun invoke(): List<Forecast> =
         repository.getForecasts()
             .sortedBy(Forecast::day)
 }
