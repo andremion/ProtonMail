@@ -9,7 +9,7 @@ class ForecastRemoteDataSource(
     suspend fun getForecasts(): List<ForecastDTO> =
         try {
             service.getForecasts()
-        } catch (e: RuntimeException) {
+        } catch (e: Throwable) {
             emptyList()
         }
 }
