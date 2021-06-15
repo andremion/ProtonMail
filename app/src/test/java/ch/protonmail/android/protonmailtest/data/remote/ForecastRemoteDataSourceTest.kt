@@ -31,11 +31,13 @@ class ForecastRemoteDataSourceTest {
         assertEquals(expected, actual)
     }
 
-    @Test(expected = RuntimeException::class)
-    fun `get forecasts error`(): Unit = runBlocking {
-        val error = RuntimeException("Error")
-        whenever(mockService.getForecasts()).thenThrow(error)
+    @Test
+    fun `fallback to empty list when get error`(): Unit = runBlocking {
+        whenever(mockService.getForecasts()).thenThrow(RuntimeException())
 
-        sut.getForecasts()
+        val actual = sut.getForecasts()
+
+        val expected = emptyList<ForecastDTO>()
+        assertEquals(expected, actual)
     }
 }

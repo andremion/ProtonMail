@@ -7,5 +7,9 @@ class ForecastRemoteDataSource(
 ) {
 
     suspend fun getForecasts(): List<ForecastDTO> =
-        service.getForecasts()
+        try {
+            service.getForecasts()
+        } catch (e: RuntimeException) {
+            emptyList()
+        }
 }
