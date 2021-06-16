@@ -4,9 +4,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.work.WorkManager
 import ch.protonmail.android.protonmailtest.R
-import ch.protonmail.android.protonmailtest.data.worker.DownloadImageWorker
 import ch.protonmail.android.protonmailtest.di.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.flow.launchIn
@@ -20,10 +18,10 @@ import javax.inject.Inject
 class DetailsActivity : AppCompatActivity() {
 
     companion object {
-        const val EXTRA_DAY: String = "extra_day"
+        const val EXTRA_ID: String = "extra_id"
     }
 
-    private val day: Int get() = intent.getIntExtra(EXTRA_DAY, 0)
+    private val id: Int get() = intent.getIntExtra(EXTRA_ID, 0)
 
     @Inject
     lateinit var screen: DetailsScreen
@@ -32,8 +30,6 @@ class DetailsActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: DetailsViewModel by viewModels { viewModelFactory }
-
-    private val workManager: WorkManager = WorkManager.getInstance(application)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +41,14 @@ class DetailsActivity : AppCompatActivity() {
         screen.event
             .onEach(::onEvent)
             .launchIn(lifecycleScope)
-        viewModel.init(day)
+        viewModel.init(id)
+            .observe(this, viewModel::onWorkInfo)
     }
 
     private fun onEvent(event: DetailsViewEvent) {
         when (event) {
             is DetailsViewEvent.DownloadClicked -> {
-                val workRequest = DownloadImageWorker.createWorkRequest(event.day, event.image)
-                workManager.enqueue(workRequest)
+                viewModel.onDownloadClicked(event.day, event.image)
             }
         }
     }

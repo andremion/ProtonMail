@@ -22,19 +22,22 @@ class DetailsScreen @Inject constructor(
     private val descriptionView: TextView = view.findViewById(R.id.description)
     private val chanceOfRainView: TextView = view.findViewById(R.id.chance_rain)
     private val downloadButton: View = view.findViewById(R.id.downloadButton)
+    private val progressView: View = view.findViewById(R.id.progress)
 
     fun render(state: DetailsViewState) {
         when (state) {
-            is DetailsViewState.Idle -> {
-                downloadButton.isVisible = false
-            }
-            is DetailsViewState.Result -> {
-                onResultState(state.model)
-            }
-            is DetailsViewState.Error -> {
-                showError(state.error)
-            }
+            is DetailsViewState.Idle -> onIdleState()
+            is DetailsViewState.Result -> onResultState(state.model)
+            is DetailsViewState.Error -> showError(state.error)
+            is DetailsViewState.DownloadInProgress -> onDownloadInProgress()
+            is DetailsViewState.DownloadCompleted -> onDownloadCompleted(state)
+            is DetailsViewState.DownloadFailed -> onDownloadFailed()
         }
+    }
+
+    private fun onIdleState() {
+        downloadButton.isVisible = false
+        progressView.isVisible = false
     }
 
     private fun onResultState(model: ForecastDetailsModel) {
@@ -43,7 +46,6 @@ class DetailsScreen @Inject constructor(
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
             .into(imageView)
-        descriptionView.text = model.description
         descriptionView.text = model.description
         chanceOfRainView.text = model.chanceOfRain
         downloadButton.isVisible = model.showDownloadButton
@@ -59,6 +61,25 @@ class DetailsScreen @Inject constructor(
             requireNotNull(error.message)
         }
         Snackbar.make(view, text, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun onDownloadInProgress() {
+        downloadButton.isEnabled = false
+        progressView.isVisible = true
+    }
+
+    private fun onDownloadCompleted(state: DetailsViewState.DownloadCompleted) {
+        imageLoader.load(state.imageFile)
+            .centerCrop()
+            .placeholder(R.drawable.ic_launcher_background)
+            .into(imageView)
+        downloadButton.isVisible = false
+        progressView.isVisible = false
+    }
+
+    private fun onDownloadFailed() {
+        downloadButton.isEnabled = true
+        progressView.isVisible = false
     }
 }
 
