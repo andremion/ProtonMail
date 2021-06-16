@@ -45,10 +45,11 @@
         app:layout_constrainedWidth="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/description"
-        tools:text="Cloudy with showers" />
+        tools:text="30% chance of rain" />
 
     <Button
         android:id="@+id/downloadButton"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"

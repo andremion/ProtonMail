@@ -20,7 +20,7 @@ class ForecastDetailsModelMapper @Inject constructor(
             day = day,
             title = context.getString(R.string.details_title, day),
             description = description,
-            chanceOfRain = chanceOfRain.asPercent(),
+            chanceOfRain = context.getString(R.string.details_chance_of_rain, chanceOfRain.asPercent()),
             imageUri = image,
             imageFile = context.imageFile(day),
             showDownloadButton = !context.imageFile(day).exists()
