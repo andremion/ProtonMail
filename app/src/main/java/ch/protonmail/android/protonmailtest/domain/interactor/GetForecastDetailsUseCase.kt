@@ -8,5 +8,5 @@ class GetForecastDetailsUseCase @Inject constructor(
     private val repository: ForecastRepository
 ) {
 
-    suspend operator fun invoke(day: Int): Forecast = repository.getForecast(day)
+    suspend operator fun invoke(id: Int): Forecast = repository.getForecast(id)
 }

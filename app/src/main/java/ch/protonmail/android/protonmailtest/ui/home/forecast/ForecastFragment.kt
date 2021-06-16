@@ -42,7 +42,7 @@ abstract class ForecastFragment : Fragment() {
         when (event) {
             is ForecastViewEvent.ForecastClicked -> {
                 Intent(requireContext(), DetailsActivity::class.java)
-                    .putExtra(DetailsActivity.EXTRA_DAY, event.day)
+                    .putExtra(DetailsActivity.EXTRA_ID, event.day)
                     .let(::startActivity)
             }
         }
