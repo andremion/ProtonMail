@@ -1,8 +1,9 @@
 package ch.protonmail.android.protonmailtest.data.remote
 
 import ch.protonmail.android.protonmailtest.data.remote.dto.ForecastDTO
+import javax.inject.Inject
 
-class ForecastRemoteDataSource(
+class ForecastRemoteDataSource @Inject constructor(
     private val service: ForecastService
 ) {
 

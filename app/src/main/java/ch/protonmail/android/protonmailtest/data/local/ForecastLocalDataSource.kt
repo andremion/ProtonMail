@@ -1,8 +1,9 @@
 package ch.protonmail.android.protonmailtest.data.local
 
 import ch.protonmail.android.protonmailtest.data.local.entity.ForecastEntity
+import javax.inject.Inject
 
-class ForecastLocalDataSource(
+class ForecastLocalDataSource @Inject constructor(
     private val dao: ForecastDAO
 ) {
 

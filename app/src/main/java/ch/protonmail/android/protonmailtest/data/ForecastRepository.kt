@@ -5,8 +5,9 @@ import ch.protonmail.android.protonmailtest.data.mapper.ForecastDomainMapper
 import ch.protonmail.android.protonmailtest.data.mapper.ForecastLocalMapper
 import ch.protonmail.android.protonmailtest.data.remote.ForecastRemoteDataSource
 import ch.protonmail.android.protonmailtest.domain.Forecast
+import javax.inject.Inject
 
-class ForecastRepository(
+class ForecastRepository @Inject constructor(
     private val localDataSource: ForecastLocalDataSource,
     private val remoteDataSource: ForecastRemoteDataSource,
     private val domainMapper: ForecastDomainMapper,

@@ -3,8 +3,9 @@ package ch.protonmail.android.protonmailtest.data.mapper
 import ch.protonmail.android.protonmailtest.data.local.entity.ForecastEntity
 import ch.protonmail.android.protonmailtest.data.remote.dto.ForecastDTO
 import ch.protonmail.android.protonmailtest.domain.Forecast
+import javax.inject.Inject
 
-class ForecastDomainMapper {
+class ForecastDomainMapper @Inject constructor() {
 
     fun map(localForecasts: List<ForecastEntity>): List<Forecast> =
         localForecasts.mapToDomain()
