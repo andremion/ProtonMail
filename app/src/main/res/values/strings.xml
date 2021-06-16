@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ProtonMailTest</string>
+    <string name="generic_error">Oops! Something went wrong.\nPlease try again later.</string>
+    <string name="home_forecast_tab_upcoming">Upcoming</string>
+    <string name="home_forecast_tab_hottest">Hottest</string>
+    <string name="home_forecast_item_title">Day %1$d: %2$s</string>
+    <string name="details_title">Day %1$d</string>
+    <string name="details_download_button">Download</string>
 </resources>
