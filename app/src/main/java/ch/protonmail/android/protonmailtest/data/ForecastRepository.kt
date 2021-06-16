@@ -14,6 +14,10 @@ class ForecastRepository @Inject constructor(
     private val localMapper: ForecastLocalMapper
 ) {
 
+    suspend fun getForecast(day: Int): Forecast =
+        localDataSource.getForecast(day)
+            .run(domainMapper::map)
+
     suspend fun getForecasts(): List<Forecast> {
         val remoteForecasts = remoteDataSource.getForecasts()
         return if (remoteForecasts.isEmpty()) {

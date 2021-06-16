@@ -7,10 +7,14 @@ class ForecastLocalDataSource @Inject constructor(
     private val dao: ForecastDAO
 ) {
 
+    suspend fun getForecast(day: Int): ForecastEntity =
+        dao.getByDay(day)
+
     suspend fun getForecasts(): List<ForecastEntity> =
         dao.getAll()
 
     suspend fun saveForecasts(forecasts: List<ForecastEntity>) {
         dao.saveForecasts(*forecasts.toTypedArray())
     }
+
 }

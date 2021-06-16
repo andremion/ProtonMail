@@ -10,6 +10,9 @@ class ForecastDomainMapper @Inject constructor() {
     fun map(localForecasts: List<ForecastEntity>): List<Forecast> =
         localForecasts.mapToDomain()
 
+    fun map(localForecast: ForecastEntity): Forecast =
+        localForecast.mapToDomain()
+
     @JvmName("mapFromRemote")
     fun map(remoteForecasts: List<ForecastDTO>): List<Forecast> =
         remoteForecasts.mapToDomain()
@@ -17,14 +20,15 @@ class ForecastDomainMapper @Inject constructor() {
 }
 
 private fun List<ForecastEntity>.mapToDomain(): List<Forecast> =
-    map { entity ->
-        Forecast(
-            day = entity.day,
-            description = entity.description,
-            chanceOfRain = entity.chanceOfRain,
-            image = entity.image
-        )
-    }
+    map(ForecastEntity::mapToDomain)
+
+private fun ForecastEntity.mapToDomain(): Forecast =
+    Forecast(
+        day = day,
+        description = description,
+        chanceOfRain = chanceOfRain,
+        image = image
+    )
 
 @JvmName("mapFromRemote")
 private fun List<ForecastDTO>.mapToDomain() =

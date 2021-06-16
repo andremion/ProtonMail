@@ -9,6 +9,9 @@ import ch.protonmail.android.protonmailtest.data.local.entity.ForecastEntity
 @Dao
 abstract class ForecastDAO {
 
+    @Query("SELECT * FROM forecasts WHERE day = :day")
+    abstract suspend fun getByDay(day: Int): ForecastEntity
+
     @Query("SELECT * FROM forecasts")
     abstract suspend fun getAll(): List<ForecastEntity>
 
