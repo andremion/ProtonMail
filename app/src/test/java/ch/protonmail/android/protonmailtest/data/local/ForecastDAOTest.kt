@@ -26,8 +26,12 @@ class ForecastDAOTest {
 
 private class ForecastDAOImpl : ForecastDAO() {
 
+    override suspend fun getById(id: Int): ForecastEntity {
+        TODO("no-op")
+    }
+
     override suspend fun getAll(): List<ForecastEntity> =
-        emptyList()
+        TODO("no-op")
 
     override suspend fun insert(vararg forecast: ForecastEntity) {
         // no-op
